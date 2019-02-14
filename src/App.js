@@ -1,4 +1,5 @@
 import React from 'react';
+import './components/TodoComponents/Todo.css'
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
@@ -47,13 +48,14 @@ class App extends React.Component {
     })
     )
   }
+  
 
   render() {
     const { task, id, completed } = this.state;
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoList updateTodoList={this.updateTodoList} todoList={this.state.todoList}/>
+        <TodoList completed={completed} updateTodoList={this.updateTodoList} todoList={this.state.todoList}/>
         <TodoForm addTodoItem={this.addTodoItem} clearCompleted={this.clearCompleted}/>
       </div>
     );
