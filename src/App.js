@@ -48,6 +48,14 @@ class App extends React.Component {
     })
     )
   }
+
+  searchItem = (task) => {
+    const searchArray = this.state.todoList.filter(item => item.task === task);
+
+    this.setState({
+      todoList: searchArray,
+    })
+  }
   
 
   render() {
@@ -56,7 +64,7 @@ class App extends React.Component {
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoList completed={completed} updateTodoList={this.updateTodoList} todoList={this.state.todoList}/>
-        <TodoForm addTodoItem={this.addTodoItem} clearCompleted={this.clearCompleted}/>
+        <TodoForm searchItem={this.searchItem} addTodoItem={this.addTodoItem} clearCompleted={this.clearCompleted}/>
       </div>
     );
   }

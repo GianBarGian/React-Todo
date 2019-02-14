@@ -6,12 +6,19 @@ export default class TodoForm extends React.Component {
 
         this.state = {
             inputValue: "",
+            searchValue: "",
         }
     }
 
-    changeHandler = event => {
+    changeInput = event => {
         this.setState({
             inputValue: event.target.value,
+          });
+    }
+
+    changeSearch = event => {
+        this.setState({
+            searchValue: event.target.value,
           });
     }
 
@@ -35,7 +42,9 @@ export default class TodoForm extends React.Component {
     render() {
         return (
             <div className="todo-form">
-                <input type="text" value={this.state.inputValue} onChange={this.changeHandler}/>
+                <input type="text" value={this.state.searchValue} onChange={this.changeSearch}/>
+                <button onClick={() => this.props.searchItem(this.state.searchValue)}>Search</button>
+                <input type="text" value={this.state.inputValue} onChange={this.changeInput}/>
                 <button onClick={this.clicked}>Add Todo</button>
                 <button onClick={this.props.clearCompleted}>Clear Completed</button>
             </div>
