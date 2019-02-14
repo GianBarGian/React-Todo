@@ -22,6 +22,31 @@ class App extends React.Component {
     }
   }
 
+  // saveState = () => {
+  //   for (let key in this.state) {
+  //     localStorage.setItem(key, JSON.stringify(this.state[key]));
+  //   }
+  // }
+
+  // getStatefromLS = () => {
+  //   for (let key in this.state) {
+  //     this.value = localStorage.getItem(key);
+  //     this.value = JSON.parse(this.value);
+      
+  //     this.setState({
+  //       [key]: this.value
+  //     })
+  //   }
+  // }
+
+  // componentDidMount() {
+  //   this.getStatefromLS();
+  // }
+
+  // componentWillUnmount() {
+  //   this.saveState();
+  // }
+
   updateTodoList = (id) => {  
     let updatedTodo = this.state.todoList.map(item => {
       if (item.id === id) {
