@@ -29,8 +29,8 @@ class App extends React.Component {
 
   
 
-  clickedTodo = (id) => {  
-    let newVar = this.state.todoList.map(item => {
+  updateTodoList = (id) => {  
+    let updatedTodo = this.state.todoList.map(item => {
       if (item.id === id) {
         item.completed = true
       } 
@@ -38,7 +38,14 @@ class App extends React.Component {
     })
     
     this.setState({
-      todoList: [...newVar] ,
+      todoList: [...updatedTodo] ,
+    })
+  }
+
+  clearCompleted = () => {
+    let clearArray = this.state.todoList.filter(item => item.completed === false);
+    this.setState({
+      todoList: clearArray,
     })
   }
 
@@ -47,8 +54,8 @@ class App extends React.Component {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoList clickedTodo={this.clickedTodo} todoList={this.state.todoList}/>
-        <TodoForm addTodoItem={this.addTodoItem}/>
+        <TodoList updateTodoList={this.updateTodoList} todoList={this.state.todoList}/>
+        <TodoForm addTodoItem={this.addTodoItem} clearCompleted={this.clearCompleted}/>
       </div>
     );
   }

@@ -9,7 +9,7 @@ export default function TodoList(props) {
         <div className="todo-list">
             {
                 props.todoList.map(todoItem => (
-                    <div onClick={() => props.clickedTodo(todoItem.id)} key={todoItem.id}>{todoItem.task}</div>
+                    <div onClick={() => props.updateTodoList(todoItem.id)} key={todoItem.id}>{todoItem.task}</div>
                 ))
             }
         </div>
