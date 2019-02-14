@@ -23,6 +23,13 @@ export default class TodoForm extends React.Component {
         }
 
         this.props.addTodoItem(newItem);
+        this.clearForm();
+    }
+
+    clearForm = () => {
+        this.setState({
+            inputValue: ""
+        })
     }
 
     render() {

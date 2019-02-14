@@ -21,14 +21,6 @@ class App extends React.Component {
     }
   }
 
-  addTodoItem = todoItem => {
-    this.setState(st => ({
-      todoList: st.todoList.concat(todoItem)
-    }))
-  }
-
-  
-
   updateTodoList = (id) => {  
     let updatedTodo = this.state.todoList.map(item => {
       if (item.id === id) {
@@ -43,10 +35,17 @@ class App extends React.Component {
   }
 
   clearCompleted = () => {
-    let clearArray = this.state.todoList.filter(item => item.completed === false);
+    const clearArray = this.state.todoList.filter(item => item.completed === false);
     this.setState({
       todoList: clearArray,
     })
+  }
+
+  addTodoItem = todoItem => {
+    this.setState(st => ({
+      todoList: st.todoList.concat(todoItem)
+    })
+    )
   }
 
   render() {
