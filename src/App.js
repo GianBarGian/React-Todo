@@ -1,4 +1,5 @@
 import React from 'react';
+import './components/TodoComponents/Todo.css'
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
@@ -21,16 +22,42 @@ class App extends React.Component {
     }
   }
 
-  addTodoItem = todoItem => {
-    this.setState(st => ({
-      todoList: st.todoList.concat(todoItem)
-    }))
+  saveState = () => {
+    for (let key in this.state) {
+      localStorage.setItem(key, JSON.stringify(this.state[key]));
+    }
   }
 
-  
+  getStatefromLS = () => {
+    for (let key in this.state) {
+      this.value = localStorage.getItem(key);
+      this.value = JSON.parse(this.value);
+      
+      this.setState({
+        [key]: this.value
+      })
+    }
+  }
 
-  clickedTodo = (id) => {  
-    let newVar = this.state.todoList.map(item => {
+  componentDidMount() {
+    this.getStatefromLS();
+
+    window.addEventListener(
+      "beforeunload",
+      this.saveState.bind(this)
+    )
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      "beforeunload",
+      this.saveState.bind(this)
+    );
+    this.saveState();
+  }
+
+  updateTodoList = (id) => {  
+    let updatedTodo = this.state.todoList.map(item => {
       if (item.id === id) {
         item.completed = true
       } 
@@ -38,17 +65,40 @@ class App extends React.Component {
     })
     
     this.setState({
-      todoList: [...newVar] ,
+      todoList: [...updatedTodo] ,
     })
   }
+
+  clearCompleted = () => {
+    const clearArray = this.state.todoList.filter(item => item.completed === false);
+    this.setState({
+      todoList: clearArray,
+    })
+  }
+
+  addTodoItem = todoItem => {
+    this.setState(st => ({
+      todoList: st.todoList.concat(todoItem)
+    })
+    )
+  }
+
+  searchItem = (task) => {
+    const searchArray = this.state.todoList.filter(item => item.task === task);
+
+    this.setState({
+      todoList: searchArray,
+    })
+  }
+  
 
   render() {
     const { task, id, completed } = this.state;
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoList clickedTodo={this.clickedTodo} todoList={this.state.todoList}/>
-        <TodoForm addTodoItem={this.addTodoItem}/>
+        <TodoList completed={completed} updateTodoList={this.updateTodoList} todoList={this.state.todoList}/>
+        <TodoForm searchItem={this.searchItem} addTodoItem={this.addTodoItem} clearCompleted={this.clearCompleted}/>
       </div>
     );
   }
